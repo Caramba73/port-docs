@@ -373,91 +373,76 @@ window.onbeforeunload = function () {
     return "Do you really want to close?";
 };
 
-  var PortsArray = [];
-  var portIdx = -1;
+var PortsArray = [];
+var portIdx = -1;
 
 var update = function() {
     document.getElementById("DateTime")
-    .innerHTML ='\u231A ' + moment().format('YYYY-MM-DD HH:MM:ss');
+        .innerHTML ='\u231A ' + moment().format('YYYY-MM-DD HH:MM:ss');
 }
+
 setInterval(update, 1000);
 
-function showMyImage() {
-
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("HlpBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-modal.style.display = "block";
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+function showMyImage () {
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // Get the button that opens the modal
+    var btn = document.getElementById("HlpBtn");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 }
 
+function nextPort (a) {
+    var minDiff = 10000000000000000;
+    var pNameIDx = 0;    
+    for (var i = 0; i < a.length; i++) {
+        var difference = moment(a[i].ETA) - moment();
+        if (difference > 0) {
+            if (difference < minDiff) {
+                minDiff = difference;
+                pNameIDx = i;
+            }
+        }
+    }
 
+    document.getElementById("infoDIV").innerHTML = 'Next Port:  ' +
+        PortsArray[pNameIDx].Name + ', ETA: ' + PortsArray[pNameIDx].ETA;
 }
-
-function nextPort (a){
-
-var minDiff = 10000000000000000;  
-  
-  for (var i=0; i<a.length; i++){
-   
-   var difference = moment(a[i].ETA) - moment();
-
-    if(difference > 0){ if(difference<minDiff){
-      minDiff = difference;
-      var pNameIDx = i;
-    };
-  }
-  
-  }
-document.getElementById("infoDIV").innerHTML = 'Next Port:  ' + PortsArray[pNameIDx].Name + ', ETA: ' + PortsArray[pNameIDx].ETA;
-};
 
 findIndx("PrtNm", function(elementId, index) {
-    // alert( portIdx + "   " + index);
-    
     var a = prompt('Enter Port Name', PortsArray[portIdx].Name);
+    if (a != null) {
+        PortsArray[portIdx].Name = a;    
+        cleanAllColumns();
 
-    if (a != null){
-    PortsArray[portIdx].Name = a;    
-    cleanAllColumns();
-
-      for (var i=0; i<PortsArray.length; i++){
-        NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
-      }
-    };
-   });
-
-  findIndxDbl("PortsETAUL", function(elementId, index) {
-    // alert( portIdx + "   " + index);
-    var a = prompt('Enter new ETA for Port ' + PortsArray[portIdx].Name, PortsArray[portIdx].ETA);
-
-    if(a != null){
-    
-    PortsArray[portIdx].ETA = a;
-
-    var s = Date.parse(a);
-    // alert(moment(s).fromNow());
-
-    cleanAllColumns();
-
-    for (var i=0; i<PortsArray.length; i++){
-      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+        for (var i = 0; i < PortsArray.length; i++){
+            NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+        }
     }
-  };
-   });
+})
 
-  findIndxDbl("PortsAdvNtcUL", function(elementId, index) {
-    // alert( portIdx + "   " + index);
+findIndxDbl("PortsETAUL", function(elementId, index) {
+    var a = prompt('Enter new ETA for Port ' + PortsArray[portIdx].Name, PortsArray[portIdx].ETA);
+    if(a != null) {
+        PortsArray[portIdx].ETA = a;
+        var s = Date.parse(a);
+        cleanAllColumns();
+
+        for (var i = 0; i < PortsArray.length; i++) {
+            NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+        }
+    }
+})
+
+findIndxDbl("PortsAdvNtcUL", function(elementId, index) {
+
     var a = prompt('Enter new Advance Notice in Days for port ' + PortsArray[portIdx].Name, PortsArray[portIdx].DueTime);
     
     if(a != null){
