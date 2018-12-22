@@ -1,0 +1,108 @@
+{
+    "PortsArray": [
+        {
+            "Name": "Heuneme",
+            "DueTime": "6",
+            "ETA": "2018-12-26 16:00",
+            "ListofPreArrivalDocs": [
+                {
+                    "Name": "CrewList, Us style",
+                    "NumberOfCopies": "1",
+                    "Status": true
+                },
+                {
+                    "Name": "Ship's Store List, US style",
+                    "Status": true
+                }
+            ],
+            "ListofArrivalDocs": [
+                {
+                    "Name": "Crew List US style",
+                    "NumberOfCopies": "3",
+                    "Status": true
+                },
+                {
+                    "Name": "PoC, US Style",
+                    "NumberOfCopies": "3",
+                    "Status": true
+                },
+                {
+                    "Name": "Crew Effect Declaration",
+                    "NumberOfCopies": "5",
+                    "Status": true
+                }
+            ],
+            "Status": true
+        },
+        {
+            "Name": "Los Angeles",
+            "DueTime": "6",
+            "ETA": "2018-12-20 14:00",
+            "ListofArrivalDocs": [
+                {
+                    "Name": "CrewList",
+                    "NumberOfCopies": "1",
+                    "Status": false
+                }
+            ],
+            "ListofPreArrivalDocs": [
+                {
+                    "Name": "Crew Lizt",
+                    "Status": false
+                }
+            ],
+            "Status": false
+        },
+        {
+            "Name": "Oakland",
+            "DueTime": "6",
+            "ETA": "2018-12-26 12:00",
+            "ListofArrivalDocs": [
+                {
+                    "Name": "Arrival Doc 1",
+                    "NumberOfCopies": "2",
+                    "Status": true
+                },
+                {
+                    "Name": "Arrival Doc 2",
+                    "NumberOfCopies": "2",
+                    "Status": true
+                }
+            ],
+            "ListofPreArrivalDocs": [
+                {
+                    "Name": "New Oakland Doc",
+                    "Status": true
+                },
+                {
+                    "Name": "One more Doc",
+                    "Status": true
+                }
+            ],
+            "Status": true
+        },
+        {
+            "Name": "Santo Tomas de Castilla [GTSTC]",
+            "DueTime": "3",
+            "ETA": "2019-01-15 12:00",
+            "ListofArrivalDocs": [
+                {
+                    "Name": "CrewList Mex",
+                    "NumberOfCopies": "1",
+                    "Status": false
+                }
+            ],
+            "ListofPreArrivalDocs": [
+                {
+                    "Name": "ISPS Doc",
+                    "Status": false
+                },
+                {
+                    "Name": "Crew List, DNV Port",
+                    "Status": false
+                }
+            ],
+            "Status": false
+        }
+    ]
+}

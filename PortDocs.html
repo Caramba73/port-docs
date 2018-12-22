@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Docs</title>
+</head>
+<style>
+
+
+
+.TopHeader{
+  height: 75px;
+  background-color: #ced9d9;
+  font-size: 24px;
+  text-align: center;
+  margin: auto;
+  vertical-align: middle;
+  border-width: 1;
+  border-style: solid;
+  border-color: grey;
+}
+
+.PortHeader{
+  height: 50px;
+  background-color: #ced9d9;
+  font-size: 24px;
+  text-align: center;
+  /*margin: auto;*/
+  vertical-align: middle;
+  border-width: 3px;
+  border-style: outset;
+  border-color: grey;
+}
+
+.body{
+  position: absolute;
+  top: 90px;
+  right: 7px;
+  left: 7px;
+  bottom: 0px;
+  display: flex;
+
+}
+
+.sidebar{
+  width: 40%;
+  border-width: 1;
+  border-style: solid;
+  border-color: grey;
+}
+
+.PortDocArea{
+  width: 60%;
+  float:left;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
+}
+.container {
+  display: flex;
+  height: 100%;
+  background: #ced9d9;
+  flex-direction: column;
+}
+
+.scrollable-content {
+  background: white;
+  flex-grow: 1;  
+  overflow: auto;
+  
+  /* for Firefox */
+  min-height: 0;
+}
+
+.column-body {	
+  margin-top: 1px;
+  background-color: #ced9d9;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+.flexcontainer{
+  display: flex;
+  margin-left: : 1px;
+  background-color: #ced9d9;
+  border-width:1px;
+  border-radius: 2px;
+  height: 20px;
+
+}
+
+.flexcontainer > div {
+width: 100%;
+}
+
+.addBtn {
+  margin-top: 5px;
+  padding: 10px;
+  width: 8%;
+  background: #CECECE;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 3px;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+
+.close {
+  position: relative;
+  right: 0;
+  top: 0;
+  transition: 0.3s;
+  width: 93%;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.close:nth-child(odd):hover {
+  background-color: #f44336;
+  color: white;
+}
+
+
+
+input[type="text"] {
+  margin-top: 5px;
+  margin-left: 1%;
+  border: none;
+  border-radius: 3px;
+  width: 78%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+
+ul, li {
+  font-size: 1vw;
+  list-style: none;
+  position: relative;
+  background: #b8b8b8;
+  padding: 1px;
+  display: block;
+  transition: 0.3s;
+  border-radius: 4px;
+  border-width: 1px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+ul, li:hover {
+  font-size: 1.1vw;
+  list-style: none;
+  position: relative;
+  background: #0ca6cc;
+  padding: 1px;
+  display: block;
+  /*border-color: black;*/
+  border-radius: 4px;
+  border-width: 1px;
+}
+
+ul li:nth-child(odd) {
+  background: #dbdbdb;
+}
+
+ul li:nth-child(odd):hover {
+  background: #0ca6cc;
+}
+
+ul li.highcolor {
+  background-color: #0ca6cc;
+  color: #fff;
+}
+
+ul li.done {
+  text-decoration: line-through;
+}
+
+ul li.donehighcolor{
+  background-color: #0ca6cc;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+ul li.tosend {
+  background-color: #ecdc24;
+}
+
+ul li.passed{
+background-color: #6B9E2F;
+color: white;
+text-decoration: line-through;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 20px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 90%;
+}
+
+</style>
+
+<body>
+
+
+<div class = "TopHeader">
+  <div class="flexcontainer" style = "width: 100%; height: 50%; flex-direction: row; "> 
+    
+    <div style="border-style: outset; border-radius: 3px; border-width: 2px;"><input type="file" id="fileinput" style="width: 95%; height: 85%;"></div>
+
+    <div style="border-style: outset; border-radius: 3px; border-width: 2px;"><button onclick='handleFileSelect()' style="width: 100%; height: 85%;">Load</div>
+
+    <div style="border-style: outset; border-radius: 3px; border-width: 2px;"><button onclick='SaveDataToFile()' style="width: 100%; height: 85%;">Save</div>
+    
+    <div id="container" style="border-style: outset; border-radius: 3px; border-width: 2px; float: left; height: 95%;"></div>
+    
+  </div>
+
+  <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+
+    <img src="Help.jpg">
+  </div>
+
+</div>
+
+  <div class='flexcontainer' style="width: 100%; height: 50%; flex-direction: row;">
+      <div id="DateTime" style="font-family: 'monospace'; width: 50%; float: left; text-align: center; border-style: outset; border-radius: 3px; border-width: 2px;">
+      </div>
+      
+      <div id="infoDIV" style="font-family: 'monospace'; width: 100%; float: left; text-align: center; border-style: outset; border-radius: 3px; border-width: 2px;">
+        </div>
+    <div style="border-style: outset; border-radius: 3px; border-width: 2px; width: 25%;">
+      <span style="float: left;"><button style="margin-left: 3px; width: 40px; font-size: 18px;" onclick="updatePortlistAll(PortsArray)">&#x21ba</button></span>
+      <span style="float: left;"><button id="HlpBtn" style="margin-left: 3px; width: 40px; font-size: 18px;" onclick="showMyImage()">?</button></span>  
+		</div>     
+
+</div>
+
+
+<div class="body">
+  <div class="sidebar">
+    <div class="container">
+      <div class="PortHeader" style="width: 98%; margin: 1px;">
+        <input type="text" id="PortInput" placeholder="Port Name..." style="width: 80%">
+        <span onclick="AddNewPort()" class="addBtn" style="margin-left: 3px;">Add</span>
+      </div>
+      <div class="flexcontainer" style="width: 99%; margin: 2px; background-color: #0ca6cc;">
+          <div style="font-size: 14px;">Port</div>
+          <div style="font-size: 14px; text-align: right;">ETA</div>
+          <div style="font-size: 14px; text-align: right;">Advance Notice</div>
+      </div>
+
+      <div class="scrollable-content" style="background-color: #ced9d9">
+      	<div class="column-body" style="width:6%; float: left; margin-left: 2px;">
+          <ul id="PortCloseBttn"></ul>
+        </div>
+
+        <div class="column-body" style="width:47%; float: left; margin-left: 2px;">
+          <ul id="PortsUL" style="text-align: left;"></ul>
+        </div>
+        
+        <div class="column-body" style="width:6%; float: left; margin-left: 2px;">
+        	<ul id = "PrtNm" style="font-size: 4px;"></ul>
+        </div>
+
+        <div class="column-body" style="width: 28%; float: left; margin-left: 2px; text-align: center;">
+          <ul id="PortsETAUL"></ul>
+        </div>
+
+        <div class="column-body" style="width: 6%; float: left; margin-left: 2px; text-align: center;">
+          <ul id="PortsAdvNtcUL"></ul>
+        </div>
+
+        <div class="column-body" style="width: 4%; float: left; margin-left: 2px; text-align: center;">
+          <ul id="PortDocRefresh"></ul>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="PortDocArea" style="border-width: 1px; border-style: outset;">
+   
+   <div class="container">
+     <div class="flexcontainer" style="width: 99%; margin: 3px; height: 60px;">
+     
+     <div class="PortHeader" style="width: 50%; margin: 3px; margin-top: 1px;">
+        <input style="width: 78%;" type="text" id="PreArrivalDoc" placeholder="Pre-Arrival Doc...">
+        <span onclick="addPreArrivalDocToList()" class="addBtn" style="margin-left: 3px;">Add</span>
+      </div>
+          
+      <div class="PortHeader" style="width: 50%; margin: 0px;">
+        <input style="width: 68%" type="text" id="ArrivalDoc" placeholder="Arrival Doc...">
+
+        <input style="width: 4%" type="text" id="ArrivalDocCopies" placeholder=''>
+        <span onclick="addArrivalDocToList()" class="addBtn" style="margin-left: 3px;">Add</span>
+
+      </div>
+
+     </div>
+
+	<div class="flexcontainer" style="height: 98%; margin: 3px;">
+	  <div class="scrollable-content" style="background-color: #ced9d9; width: 47%; float: left; border-width: 3px; border-style: outset;border-color: grey; margin-left: 3px;">
+
+	  	<div class="column-body" style="width:7%; float: left; margin-left: 5px;">
+          <ul id="PreArrDocCloseBttn"></ul>
+        </div>
+
+          <div class="column-body" style="width:90%; float: left; margin-left: 2px;">
+            <ul id="PreArrivalUL" style="text-align: left;"></ul>
+          </div>
+      </div>
+
+
+      <div class="scrollable-content" style="background-color: #ced9d9; width: 47%; float: left; border-width: 3px; border-style: outset;border-color: grey; margin-left: 3px;">
+      	  <div class="column-body" style="width: 7%; float: left; margin-left: 5px;">
+            <ul id="ArrivalDocCloseBttn"></ul>
+          </div>
+
+          <div class="column-body" style="width: 82%; float: left; margin-left: 2px;">
+            <ul id="ArrivalUL" style="text-align: left;"></ul>
+          </div>
+
+          <div class="column-body" style="width: 8%; float: left; margin-left: 2px;">
+          <ul id="NCopies" style="width: 80%; float: left; text-align: center;"></ul>
+
+      	 </div>
+
+      </div>
+</div>
+   </div> 
+  </div>
+
+</div>
+
+<script src="moment.js"></script>
+
+<script>
+
+window.onbeforeunload = function () {
+    return "Do you really want to close?";
+};
+
+  var PortsArray = [];
+  var portIdx = -1;
+
+var update = function() {
+    document.getElementById("DateTime")
+    .innerHTML ='\u231A ' + moment().format('YYYY-MM-DD HH:MM:ss');
+}
+setInterval(update, 1000);
+
+function showMyImage() {
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("HlpBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+modal.style.display = "block";
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+}
+
+function nextPort (a){
+
+var minDiff = 10000000000000000;  
+  
+  for (var i=0; i<a.length; i++){
+   
+   var difference = moment(a[i].ETA) - moment();
+
+    if(difference > 0){ if(difference<minDiff){
+      minDiff = difference;
+      var pNameIDx = i;
+    };
+  }
+  
+  }
+document.getElementById("infoDIV").innerHTML = 'Next Port:  ' + PortsArray[pNameIDx].Name + ', ETA: ' + PortsArray[pNameIDx].ETA;
+};
+
+findIndx("PrtNm", function(elementId, index) {
+    // alert( portIdx + "   " + index);
+    
+    var a = prompt('Enter Port Name', PortsArray[portIdx].Name);
+
+    if (a != null){
+    PortsArray[portIdx].Name = a;    
+    cleanAllColumns();
+
+      for (var i=0; i<PortsArray.length; i++){
+        NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+      }
+    };
+   });
+
+  findIndxDbl("PortsETAUL", function(elementId, index) {
+    // alert( portIdx + "   " + index);
+    var a = prompt('Enter new ETA for Port ' + PortsArray[portIdx].Name, PortsArray[portIdx].ETA);
+
+    if(a != null){
+    
+    PortsArray[portIdx].ETA = a;
+
+    var s = Date.parse(a);
+    // alert(moment(s).fromNow());
+
+    cleanAllColumns();
+
+    for (var i=0; i<PortsArray.length; i++){
+      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+    }
+  };
+   });
+
+  findIndxDbl("PortsAdvNtcUL", function(elementId, index) {
+    // alert( portIdx + "   " + index);
+    var a = prompt('Enter new Advance Notice in Days for port ' + PortsArray[portIdx].Name, PortsArray[portIdx].DueTime);
+    
+    if(a != null){
+      PortsArray[portIdx].DueTime = a;
+    
+    cleanAllColumns();
+
+    for (var i=0; i<PortsArray.length; i++){
+      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+    }
+  };
+   });
+
+
+    findIndxDbl("PreArrivalUL", function(elementId, index) {
+    // alert( portIdx + "   " + index);
+    
+    var a = prompt('Enter Document Name', PortsArray[portIdx].ListofPreArrivalDocs[index].Name);
+    
+    if(a != null){
+    PortsArray[portIdx].ListofPreArrivalDocs[index].Name= a;
+    
+    document.getElementById("PreArrDocCloseBttn").innerHTML = "";
+    document.getElementById("PreArrivalUL").innerHTML = "";
+
+    for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++){
+  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+
+  var liPreArrDoc = document.createElement("li"); 
+  var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
+  var tPreDoc = document.createTextNode(inputValue);
+  liPreArrDoc.appendChild(tPreDoc);
+
+  var liPreArrDocClose = document.createElement("li");
+  liPreArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liPreArrDocClose.appendChild(txt);
+
+  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+  document.getElementById("PreArrivalDoc").value = "";
+    }
+  };
+   });
+
+findIndxDbl("ArrivalUL", function(elementId, index) {
+    // alert( portIdx + "   " + index);
+    
+    var a = prompt('Enter Document Name', PortsArray[portIdx].ListofArrivalDocs[index].Name);
+    
+    if(a != null){
+    PortsArray[portIdx].ListofArrivalDocs[index].Name= a;
+    
+    document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
+    document.getElementById("ArrivalUL").innerHTML = "";
+    document.getElementById("NCopies").innerHTML = "";
+
+
+    for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
+  
+  var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+
+  var liArrDoc = document.createElement("li"); 
+  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+  var tArrDoc = document.createTextNode(inputValueName);
+  liArrDoc.appendChild(tArrDoc);
+
+  var liArrDocNCopies = document.createElement("li"); 
+  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+  var tArrDoc = document.createTextNode(inputValueNCopies);
+  liArrDocNCopies.appendChild(tArrDoc);
+
+
+  var liArrDocClose = document.createElement("li");
+  liArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liArrDocClose.appendChild(txt);
+
+  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+  document.getElementById("ArrivalUL").appendChild(liArrDoc);
+  document.getElementById("NCopies").appendChild(liArrDocNCopies);
+
+  document.getElementById("ArrivalDoc").value = "";
+
+
+    }
+  };
+   });
+
+
+findIndxDbl("NCopies", function(elementId, index) {
+    // alert( portIdx + "   " + index);
+    
+    var a = prompt('Enter Number of Copies', PortsArray[portIdx].ListofArrivalDocs[index].NumberOfCopies);
+    
+    if(a != null){
+    PortsArray[portIdx].ListofArrivalDocs[index].NumberOfCopies= a;
+    
+    document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
+    document.getElementById("ArrivalUL").innerHTML = "";
+    document.getElementById("NCopies").innerHTML = "";
+
+
+    for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
+  
+  var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+
+  var liArrDoc = document.createElement("li"); 
+  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+  var tArrDoc = document.createTextNode(inputValueName);
+  liArrDoc.appendChild(tArrDoc);
+
+  var liArrDocNCopies = document.createElement("li"); 
+  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+  var tArrDoc = document.createTextNode(inputValueNCopies);
+  liArrDocNCopies.appendChild(tArrDoc);
+
+
+  var liArrDocClose = document.createElement("li");
+  liArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liArrDocClose.appendChild(txt);
+
+  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+  document.getElementById("ArrivalUL").appendChild(liArrDoc);
+  document.getElementById("NCopies").appendChild(liArrDocNCopies);
+
+  document.getElementById("ArrivalDoc").value = "";
+
+    }
+  };
+   });
+
+
+  findIndx("PortCloseBttn", function(elementId, index) {
+//  alert(elementId + "   " + index);
+	var r = confirm('It will delete Port and all its Documents');
+
+	if (r == true){
+    DeleteRecord(PortsArray, index)
+    cleanAllColumns()
+
+    for (var i=0; i<PortsArray.length; i++){
+      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+    }
+}
+    
+  })
+
+  findIndx("PortDocRefresh", function(elementId, index){
+  	// alert(index);
+  	var r = confirm('It will set all Documents status to unsent');
+  	if (r == true){
+  		for (var k=0; k<PortsArray[index].ListofPreArrivalDocs.length; k++){
+      PortsArray[index].ListofPreArrivalDocs[k].Status = false;
+
+    }
+
+    for (var j=0; j<PortsArray[index].ListofArrivalDocs.length; j++){
+      PortsArray[index].ListofArrivalDocs[j].Status = false;
+    }
+    PortsArray[index].Status = false;
+    cleanAllColumns();
+    updatePortlistAll(PortsArray);
+    updatePortlist(PortsArray);
+
+    }
+  });
+
+  findIndx("PortsUL", function(elementId, index) {
+   // alert(elementId + "   " + index);
+  
+    portIdx = index;
+    
+    cleanAllColumns();
+
+    for (var i=0; i<PortsArray.length; i++){
+      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+    }
+    var list= document.getElementById('PortsUL').getElementsByTagName('li');
+    list[portIdx].className = 'highcolor';
+    if(PortsArray[portIdx].Status === true){list[portIdx].className = 'highcolor'};
+
+  document.getElementById("PreArrDocCloseBttn").innerHTML = "";
+  document.getElementById("PreArrivalUL").innerHTML = "";
+
+  document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
+  document.getElementById("ArrivalUL").innerHTML = "";
+  document.getElementById("NCopies").innerHTML = "";
+      
+  for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++){
+  
+  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+
+  var liPreArrDoc = document.createElement("li");
+  if(PortsArray[portIdx].ListofPreArrivalDocs[i].Status){
+    liPreArrDoc.className = 'done';
+  } 
+  var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
+  var tPreDoc = document.createTextNode(inputValue);
+  liPreArrDoc.appendChild(tPreDoc);
+
+  var liPreArrDocClose = document.createElement("li");
+  liPreArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liPreArrDocClose.appendChild(txt);
+
+  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+  document.getElementById("PreArrivalDoc").value = "";
+
+  };
+
+  for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
+    var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+
+  var liArrDoc = document.createElement("li");
+  if(PortsArray[portIdx].ListofArrivalDocs[i].Status){
+    liArrDoc.className = 'done';
+  } 
+  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+  var tArrDoc = document.createTextNode(inputValueName);
+  liArrDoc.appendChild(tArrDoc);
+
+  var liArrDocNCopies = document.createElement("li"); 
+  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+  var tArrDoc = document.createTextNode(inputValueNCopies);
+  liArrDocNCopies.appendChild(tArrDoc);
+
+
+  var liArrDocClose = document.createElement("li");
+  liArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liArrDocClose.appendChild(txt);
+
+  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+  document.getElementById("ArrivalUL").appendChild(liArrDoc);
+  document.getElementById("NCopies").appendChild(liArrDocNCopies);
+
+  document.getElementById("ArrivalDoc").value = "";
+
+  }
+
+
+  })
+
+  findIndx("PreArrDocCloseBttn", function(elementId, index) {
+    // alert( portIdx + "   " + index)
+
+    document.getElementById("PreArrDocCloseBttn").innerHTML = "";
+    document.getElementById("PreArrivalUL").innerHTML = "";
+
+    DeleteRecord(PortsArray[portIdx].ListofPreArrivalDocs, index)
+    for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++){
+  
+  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+
+  var liPreArrDoc = document.createElement("li"); 
+  var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
+  var tPreDoc = document.createTextNode(inputValue);
+  liPreArrDoc.appendChild(tPreDoc);
+
+  var liPreArrDocClose = document.createElement("li");
+  liPreArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liPreArrDocClose.appendChild(txt);
+
+  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+  document.getElementById("PreArrivalDoc").value = "";
+
+  };
+  })
+
+  findIndx("ArrivalDocCloseBttn" , function(elementId, index) {
+    // alert (portIdx + "  " + index)
+      DeleteRecord(PortsArray[portIdx].ListofArrivalDocs, index);
+
+    document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
+    document.getElementById("ArrivalUL").innerHTML = "";
+    document.getElementById("NCopies").innerHTML = "";
+
+  for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
+  var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+
+  var liArrDoc = document.createElement("li"); 
+  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+  var tArrDoc = document.createTextNode(inputValueName);
+  liArrDoc.appendChild(tArrDoc);
+
+  var liArrDocNCopies = document.createElement("li"); 
+  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+  var tArrDoc = document.createTextNode(inputValueNCopies);
+  liArrDocNCopies.appendChild(tArrDoc);
+
+
+  var liArrDocClose = document.createElement("li");
+  liArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liArrDocClose.appendChild(txt);
+
+  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+  document.getElementById("ArrivalUL").appendChild(liArrDoc);
+  document.getElementById("NCopies").appendChild(liArrDocNCopies);
+
+  document.getElementById("ArrivalDoc").value = "";
+
+  }
+  })
+
+findIndx('PreArrivalUL', function(element, index) {
+// alert (portIdx + "  " + index)
+
+var list = document.getElementById("PreArrivalUL").getElementsByTagName('li');
+
+if (list[index].className != 'done') {list[index].className = 'done'; PortsArray[portIdx].ListofPreArrivalDocs[index].Status = true} else {
+list[index].className = ''; PortsArray[portIdx].ListofPreArrivalDocs[index].Status = false};
+
+PortsArray[portIdx].Status = StatusCheck (portIdx);
+
+});
+
+findIndx('ArrivalUL', function(element, index) {
+// alert (portIdx + "  " + index)
+
+var list = document.getElementById("ArrivalUL").getElementsByTagName('li');
+
+if (list[index].className != 'done') {list[index].className = 'done'; PortsArray[portIdx].ListofArrivalDocs[index].Status = true} else {
+list[index].className = ''; PortsArray[portIdx].ListofArrivalDocs[index].Status = false};
+
+PortsArray[portIdx].Status = StatusCheck (portIdx);
+
+
+});
+
+
+function StatusCheck (portIndex) {
+
+var Status = true;
+
+for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
+  if(PortsArray[portIdx].ListofArrivalDocs[i].Status === false){Status = false}
+}
+
+for (var j=0; j<PortsArray[portIdx].ListofPreArrivalDocs.length; j++){
+  if(PortsArray[portIdx].ListofPreArrivalDocs[j].Status === false){Status = false}
+}
+
+return Status;
+};
+
+
+
+
+function findIndx(elementId, callback) {
+  document.getElementById(elementId).onclick = function(event) {    
+    var list= this.getElementsByTagName("li");
+    for (var i=0; i!= list.length; ++i) {
+      if (list[i]==event.target) {
+        if(callback) {
+          callback(elementId, i)
+        }
+        return;
+      };
+    }
+  };
+}
+
+function findIndxDbl(elementId, callback) {
+  document.getElementById(elementId).ondblclick = function(event) {    
+    var list= this.getElementsByTagName("li");
+    for (var i=0; i!= list.length; ++i) {
+      if (list[i]==event.target) {
+        if(callback) {
+          callback(elementId, i)
+        }
+        return;
+      };
+    }
+  };
+}
+
+
+function AddNewPort() {
+  NewPort(document.getElementById("PortInput").value, 'YYYY-MM-DD HH:MM', 0, 0);
+  var a = document.getElementById("PortInput").value;
+  addNewPorttoArray(PortsArray, a);
+  document.getElementById("PortInput").value = "";  
+}
+
+function addNewPorttoArray(ArrayName, pName){
+
+  var NewPortObj = {};
+  NewPortObj.Name = pName;
+  NewPortObj.DueTime = 1;
+  NewPortObj.ETA = 'YYYY-MM-DD HH:MM';
+  NewPortObj.ListofArrivalDocs = [];
+  NewPortObj.ListofPreArrivalDocs = [];
+  NewPortObj.Status = false;
+  ArrayName.push(NewPortObj);
+
+}
+
+
+
+function NewPort(pName, pETA, pAdvanceNotice, pIndx) {
+  
+  // var iPort=document.getElementById("PortsUL").childNodes.length;
+  
+  var liPort = document.createElement("li");
+  var myTime = moment().add(pAdvanceNotice, 'days').format('YYYY-MM-DD HH:MM')+1
+  var liPrtNmt = document.createElement('li');
+
+  if(myTime>=pETA){
+    liPrtNmt.className = 'tosend'
+  }
+
+  if (PortsArray[pIndx].Status === true){
+
+    liPrtNmt.className = 'done'
+    // liPort.className = 'done'
+  };
+
+  if ((moment(pETA) - moment())<0){
+    // liPort.className = 'passed'
+    liPrtNmt.className = 'passed'
+  }
+
+  var Portt = document.createTextNode(pName);
+  liPort.appendChild(Portt);
+
+ 
+  var liPrtNmtt = document.createTextNode('[..]')
+  liPrtNmt.appendChild(liPrtNmtt);
+
+  var liETA = document.createElement("li");
+  var tETA = document.createTextNode(pETA);
+  liETA.appendChild(tETA);
+
+  var lipAdvanceNotice = document.createElement("li");
+  var tpAdvanceNotice = document.createTextNode(pAdvanceNotice);
+  lipAdvanceNotice.appendChild(tpAdvanceNotice);
+
+
+  var liClose = document.createElement("li");
+  liClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+
+  var liRefresh = document.createElement("li");
+  var RefreshTXT = document.createTextNode("\u039E");
+  liRefresh.appendChild(RefreshTXT);
+
+  if (pName != '') {
+    
+    liClose.appendChild(txt);
+    document.getElementById("PortCloseBttn").appendChild(liClose);
+    document.getElementById("PortsUL").appendChild(liPort);
+    document.getElementById("PrtNm").appendChild(liPrtNmt);    
+    document.getElementById("PortsETAUL").appendChild(liETA);  
+    
+    document.getElementById("PortsAdvNtcUL").appendChild(lipAdvanceNotice);
+    document.getElementById("PortDocRefresh").appendChild(liRefresh);
+    
+    } else {
+    alert("You must write something!");
+  }
+}
+
+function addPreArrivalDocToList(){
+
+  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+
+  var liPreArrDoc = document.createElement("li"); 
+  var inputValue = document.getElementById("PreArrivalDoc").value;
+  var tPreDoc = document.createTextNode(inputValue);
+  liPreArrDoc.appendChild(tPreDoc);
+
+  var liPreArrDocClose = document.createElement("li");
+  liPreArrDocClose.className = "close"
+  var txt = document.createTextNode("\u00D7");
+  liPreArrDocClose.appendChild(txt);
+
+if (inputValue!="") {
+  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+  document.getElementById("PreArrivalDoc").value = "";
+
+  var NewPreArrDocObj = {};
+  NewPreArrDocObj.Name = inputValue;
+  NewPreArrDocObj.Status = false;
+  PortsArray[portIdx].ListofPreArrivalDocs.push(NewPreArrDocObj);
+
+
+  }else{
+    alert("Enter Name of Document!")
+  }
+
+}
+
+function addArrivalDocToList(){
+
+  var iPreArrDoc=document.getElementById("ArrivalUL").childNodes.length;  
+    
+    var liDoc = document.createElement("li");
+    var inputValueDocName = document.getElementById("ArrivalDoc").value;
+    var DocNamet = document.createTextNode(inputValueDocName);
+      liDoc.appendChild(DocNamet);
+      var liCopies = document.createElement("li");
+      var inputValueDocCopies = document.getElementById("ArrivalDocCopies").value;
+      DocCopiest = document.createTextNode(inputValueDocCopies);
+      liCopies.appendChild(DocCopiest); 
+
+  if (inputValueDocName===""||inputValueDocCopies==="") {alert("Document or Number of Copies not Entered!")
+    }else{
+      var liArrDocClose = document.createElement("li");
+      liArrDocClose.className = "close"
+      var txt = document.createTextNode("\u00D7");
+        
+      liArrDocClose.appendChild(txt);
+      document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+      document.getElementById("ArrivalUL").appendChild(liDoc);
+      document.getElementById("ArrivalDoc").value = "";  
+      document.getElementById("NCopies").appendChild(liCopies);
+      document.getElementById("ArrivalDocCopies").value = "";
+
+      var NewArrDocObj = {};
+      NewArrDocObj.Name = inputValueDocName;
+      NewArrDocObj.NumberOfCopies = inputValueDocCopies;
+      NewArrDocObj.Status = false;
+      PortsArray[portIdx].ListofArrivalDocs.push(NewArrDocObj);
+       
+    }
+  }
+
+  function handleFileSelect()
+            {               
+                if (window.File && window.FileReader && window.FileList && window.Blob) {
+
+                } else {
+                    alert('The File APIs are not fully supported in this browser.');
+                    return;
+                }   
+
+                input = document.getElementById('fileinput');
+                if (!input) {
+                  alert("Um, couldn't find the fileinput element.");
+               }
+               else if (!input.files) {
+                  alert("This browser doesn't seem to support the `files` property of file inputs.");
+               }
+               else if (!input.files[0]) {
+                  alert("Please select a file before clicking 'Load'");               
+               }
+               else {
+                  file = input.files[0];
+                  fr = new FileReader();
+                  fr.onload = receivedText;
+                  fr.readAsText(file);
+               }
+            }
+  function receivedText() {           
+      var result = JSON.parse(fr.result);
+      PortsArray = result.PortsArray;
+
+console.log(PortsArray);
+updatePortlistAll(PortsArray);
+    }
+
+  function updatePortlist(updPortsArray){
+  
+    document.getElementById("PortCloseBttn").innerHTML = "";
+    document.getElementById("PortsUL").innerHTML = "";
+    document.getElementById("PrtNm").innerHTML = "";
+    document.getElementById("PortsETAUL").innerHTML = "";
+    document.getElementById("PortsAdvNtcUL").innerHTML = "";
+    document.getElementById("PortDocRefresh").innerHTML = "";
+
+      for (var i=0; i<updPortsArray.length; i++){
+                NewPort(updPortsArray[i].Name, updPortsArray[i].ETA, updPortsArray[i].DueTime, i);
+              };
+              nextPort(PortsArray);
+  }
+
+  function updatePortlistAll(updPortsArray){
+
+    cleanAllColumns();
+
+    for (var i=0; i<updPortsArray.length; i++){
+                NewPort(updPortsArray[i].Name, updPortsArray[i].ETA, updPortsArray[i].DueTime, i);
+              };
+              nextPort(PortsArray);
+  }
+
+function SaveDataToFile (){ 
+
+var ObjToSave = {PortsArray};
+var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ObjToSave, null, 4));
+
+var a = document.createElement('a');
+a.href = 'data:' + data;
+a.download = 'data.json';
+a.innerHTML = 'to Location';
+
+var container = document.getElementById('container');
+document.getElementById("container").innerHTML = "";
+container.appendChild(a);
+
+}
+
+
+function cleanAllColumns(){
+
+    document.getElementById("PortCloseBttn").innerHTML = "";
+    document.getElementById("PortsUL").innerHTML = "";
+    document.getElementById("PrtNm").innerHTML = "";
+    document.getElementById("PortsETAUL").innerHTML = "";
+    document.getElementById("PortsAdvNtcUL").innerHTML = "";
+    document.getElementById("PortDocRefresh").innerHTML = "";
+
+    document.getElementById("PreArrDocCloseBttn").innerHTML = "";
+    document.getElementById("PreArrivalUL").innerHTML = "";
+
+    document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
+    document.getElementById("ArrivalUL").innerHTML = "";
+    document.getElementById("NCopies").innerHTML = "";
+
+    nextPort(PortsArray);
+}
+
+function DeleteRecord(ArrayToModify, RecordToDelete){
+  ArrayToModify.splice (RecordToDelete, 1);
+}
+
+
+</script>
+</body>
+</html>
