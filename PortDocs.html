@@ -566,7 +566,7 @@ findIndxDbl("NCopies", function(elementId, index) {
 
 findIndx("PortCloseBttn", function(elementId, index) {
 
-	var r = confirm('It will delete Port and all its Documents')
+	let r = confirm('It will delete Port and all its Documents')
 
 	if (r == true) {
     DeleteRecord(PortsArray, index)
@@ -671,51 +671,57 @@ findIndx("PortsUL", function(elementId, index) {
 })
 
 findIndx("PreArrDocCloseBttn", function(elementId, index) {
-    document.getElementById("PreArrDocCloseBttn").innerHTML = "";
-    document.getElementById("PreArrivalUL").innerHTML = "";
+	let r = confirm ("It will delete Document from the list.\n Do not forget to save changes")
+	if (r == true) {
+	    document.getElementById("PreArrDocCloseBttn").innerHTML = "";
+	    document.getElementById("PreArrivalUL").innerHTML = "";
 
-    DeleteRecord(PortsArray[portIdx].ListofPreArrivalDocs, index)
-    	for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++) {  
-  			var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
-  			var liPreArrDoc = document.createElement("li"); 
-			var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
-			var tPreDoc = document.createTextNode(inputValue);
-			liPreArrDoc.appendChild(tPreDoc);
-			var liPreArrDocClose = document.createElement("li");
-			liPreArrDocClose.className = "close"
-  			var txt = document.createTextNode("\u00D7");
-			liPreArrDocClose.appendChild(txt);
-			document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
-			document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
-			document.getElementById("PreArrivalDoc").value = "";
+	    DeleteRecord(PortsArray[portIdx].ListofPreArrivalDocs, index)
+	    	for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++) {  
+	  			var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+	  			var liPreArrDoc = document.createElement("li"); 
+				var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
+				var tPreDoc = document.createTextNode(inputValue);
+				liPreArrDoc.appendChild(tPreDoc);
+				var liPreArrDocClose = document.createElement("li");
+				liPreArrDocClose.className = "close"
+	  			var txt = document.createTextNode("\u00D7");
+				liPreArrDocClose.appendChild(txt);
+				document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+				document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+				document.getElementById("PreArrivalDoc").value = "";
   		}
+  	}
 })
 
 findIndx("ArrivalDocCloseBttn" , function(elementId, index) {
-	DeleteRecord(PortsArray[portIdx].ListofArrivalDocs, index);
-    document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
-    document.getElementById("ArrivalUL").innerHTML = "";
-    document.getElementById("NCopies").innerHTML = "";
+	let r = confirm ("It will delete Document from the list.\n Do not forget to save changes")
+	if (r == true) {	
+		DeleteRecord(PortsArray[portIdx].ListofArrivalDocs, index);
+	    document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
+	    document.getElementById("ArrivalUL").innerHTML = "";
+	    document.getElementById("NCopies").innerHTML = "";
 
-	for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++) {
-		var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
-		var liArrDoc = document.createElement("li"); 
-		var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
-		var tArrDoc = document.createTextNode(inputValueName);
-		liArrDoc.appendChild(tArrDoc);
-		var liArrDocNCopies = document.createElement("li"); 
-		var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
-  		var tArrDoc = document.createTextNode(inputValueNCopies);
-  		liArrDocNCopies.appendChild(tArrDoc);
-		var liArrDocClose = document.createElement("li");
-		liArrDocClose.className = "close"
-		var txt = document.createTextNode("\u00D7");
-		liArrDocClose.appendChild(txt);
+		for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++) {
+			var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+			var liArrDoc = document.createElement("li"); 
+			var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+			var tArrDoc = document.createTextNode(inputValueName);
+			liArrDoc.appendChild(tArrDoc);
+			var liArrDocNCopies = document.createElement("li"); 
+			var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+	  		var tArrDoc = document.createTextNode(inputValueNCopies);
+	  		liArrDocNCopies.appendChild(tArrDoc);
+			var liArrDocClose = document.createElement("li");
+			liArrDocClose.className = "close"
+			var txt = document.createTextNode("\u00D7");
+			liArrDocClose.appendChild(txt);
 
-		document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
-		document.getElementById("ArrivalUL").appendChild(liArrDoc);
-		document.getElementById("NCopies").appendChild(liArrDocNCopies);
-		document.getElementById("ArrivalDoc").value = "";
+			document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+			document.getElementById("ArrivalUL").appendChild(liArrDoc);
+			document.getElementById("NCopies").appendChild(liArrDocNCopies);
+			document.getElementById("ArrivalDoc").value = "";
+		}
 	}
 })
 
@@ -991,7 +997,6 @@ function cleanAllColumns() {
 function DeleteRecord(ArrayToModify, RecordToDelete) {
   ArrayToModify.splice (RecordToDelete, 1);
 }
-
 
 </script>
 </body>
