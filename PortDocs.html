@@ -245,10 +245,10 @@ text-decoration: line-through;
   </div>
 
   <div id="myModal" class="modal">
-
+  
   <!-- Modal content -->
   <div class="modal-content">
-
+  	<div><span class="close" style="float: left; width: 100%;">&times;</span></div>
     <img src="Help.jpg">
   </div>
 
@@ -397,6 +397,9 @@ function showMyImage () {
             modal.style.display = "none";
         }
     }
+    span.onclick = function() {
+  	modal.style.display = "none";
+}
 }
 
 function nextPort (a) {
@@ -450,50 +453,47 @@ findIndxDbl("PortsAdvNtcUL", function(elementId, index) {
     
     cleanAllColumns();
 
-    for (var i=0; i<PortsArray.length; i++){
-      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
-    }
-  };
-   });
+	    for (var i=0; i<PortsArray.length; i++){
+	      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
+	    }
+  	}
+})
 
 
-    findIndxDbl("PreArrivalUL", function(elementId, index) {
-    // alert( portIdx + "   " + index);
+findIndxDbl("PreArrivalUL", function(elementId, index) {
     
     var a = prompt('Enter Document Name', PortsArray[portIdx].ListofPreArrivalDocs[index].Name);
     
-    if(a != null){
+    if(a != null) {
     PortsArray[portIdx].ListofPreArrivalDocs[index].Name= a;
     
     document.getElementById("PreArrDocCloseBttn").innerHTML = "";
     document.getElementById("PreArrivalUL").innerHTML = "";
 
-    for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++){
-  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+	    for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++) {
+			var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
 
-  var liPreArrDoc = document.createElement("li"); 
-  var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
-  var tPreDoc = document.createTextNode(inputValue);
-  liPreArrDoc.appendChild(tPreDoc);
+			var liPreArrDoc = document.createElement("li"); 
+			var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
+			var tPreDoc = document.createTextNode(inputValue);
+			liPreArrDoc.appendChild(tPreDoc);
+			var liPreArrDocClose = document.createElement("li");
+			liPreArrDocClose.className = "close"
+			var txt = document.createTextNode("\u00D7");
+			liPreArrDocClose.appendChild(txt);
 
-  var liPreArrDocClose = document.createElement("li");
-  liPreArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liPreArrDocClose.appendChild(txt);
-
-  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
-  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
-  document.getElementById("PreArrivalDoc").value = "";
-    }
-  };
-   });
+			document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+			document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+			document.getElementById("PreArrivalDoc").value = "";
+    	}
+  	}
+})
 
 findIndxDbl("ArrivalUL", function(elementId, index) {
-    // alert( portIdx + "   " + index);
     
     var a = prompt('Enter Document Name', PortsArray[portIdx].ListofArrivalDocs[index].Name);
     
-    if(a != null){
+    if(a != null) {
     PortsArray[portIdx].ListofArrivalDocs[index].Name= a;
     
     document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
@@ -501,40 +501,33 @@ findIndxDbl("ArrivalUL", function(elementId, index) {
     document.getElementById("NCopies").innerHTML = "";
 
 
-    for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
-  
-  var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+	    for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++) {
+	  
+			var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+			var liArrDoc = document.createElement("li"); 
+			var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+			var tArrDoc = document.createTextNode(inputValueName);
+			liArrDoc.appendChild(tArrDoc);
+			var liArrDocNCopies = document.createElement("li"); 
+			var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+			var tArrDoc = document.createTextNode(inputValueNCopies);
+			liArrDocNCopies.appendChild(tArrDoc);
+			var liArrDocClose = document.createElement("li");
+			liArrDocClose.className = "close"
+			var txt = document.createTextNode("\u00D7");
+			liArrDocClose.appendChild(txt);
 
-  var liArrDoc = document.createElement("li"); 
-  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
-  var tArrDoc = document.createTextNode(inputValueName);
-  liArrDoc.appendChild(tArrDoc);
+			document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+			document.getElementById("ArrivalUL").appendChild(liArrDoc);
+			document.getElementById("NCopies").appendChild(liArrDocNCopies);
 
-  var liArrDocNCopies = document.createElement("li"); 
-  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
-  var tArrDoc = document.createTextNode(inputValueNCopies);
-  liArrDocNCopies.appendChild(tArrDoc);
-
-
-  var liArrDocClose = document.createElement("li");
-  liArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liArrDocClose.appendChild(txt);
-
-  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
-  document.getElementById("ArrivalUL").appendChild(liArrDoc);
-  document.getElementById("NCopies").appendChild(liArrDocNCopies);
-
-  document.getElementById("ArrivalDoc").value = "";
-
-
-    }
-  };
-   });
+			document.getElementById("ArrivalDoc").value = "";
+    	}
+	}
+})
 
 
 findIndxDbl("NCopies", function(elementId, index) {
-    // alert( portIdx + "   " + index);
     
     var a = prompt('Enter Number of Copies', PortsArray[portIdx].ListofArrivalDocs[index].NumberOfCopies);
     
@@ -546,285 +539,249 @@ findIndxDbl("NCopies", function(elementId, index) {
     document.getElementById("NCopies").innerHTML = "";
 
 
-    for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
-  
-  var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+		for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++) {
+		  
+		var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+		var liArrDoc = document.createElement("li"); 
+		var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+		var tArrDoc = document.createTextNode(inputValueName);
+		liArrDoc.appendChild(tArrDoc);
+		var liArrDocNCopies = document.createElement("li"); 
+		var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+		var tArrDoc = document.createTextNode(inputValueNCopies);
+		liArrDocNCopies.appendChild(tArrDoc);
+		var liArrDocClose = document.createElement("li");
+		liArrDocClose.className = "close"
+		var txt = document.createTextNode("\u00D7");
+		liArrDocClose.appendChild(txt);
 
-  var liArrDoc = document.createElement("li"); 
-  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
-  var tArrDoc = document.createTextNode(inputValueName);
-  liArrDoc.appendChild(tArrDoc);
+		document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+		document.getElementById("ArrivalUL").appendChild(liArrDoc);
+		document.getElementById("NCopies").appendChild(liArrDocNCopies);
+		document.getElementById("ArrivalDoc").value = "";
 
-  var liArrDocNCopies = document.createElement("li"); 
-  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
-  var tArrDoc = document.createTextNode(inputValueNCopies);
-  liArrDocNCopies.appendChild(tArrDoc);
+    	}
+  	}
+})
 
+findIndx("PortCloseBttn", function(elementId, index) {
 
-  var liArrDocClose = document.createElement("li");
-  liArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liArrDocClose.appendChild(txt);
+	var r = confirm('It will delete Port and all its Documents')
 
-  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
-  document.getElementById("ArrivalUL").appendChild(liArrDoc);
-  document.getElementById("NCopies").appendChild(liArrDocNCopies);
-
-  document.getElementById("ArrivalDoc").value = "";
-
-    }
-  };
-   });
-
-
-  findIndx("PortCloseBttn", function(elementId, index) {
-//  alert(elementId + "   " + index);
-	var r = confirm('It will delete Port and all its Documents');
-
-	if (r == true){
+	if (r == true) {
     DeleteRecord(PortsArray, index)
     cleanAllColumns()
 
-    for (var i=0; i<PortsArray.length; i++){
-      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
-    }
-}
+	    for (var i=0; i<PortsArray.length; i++) {
+	      NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i)
+	    }
+	}	
     
-  })
+})
 
-  findIndx("PortDocRefresh", function(elementId, index){
-  	// alert(index);
-  	var r = confirm('It will set all Documents status to unsent');
-  	if (r == true){
-  		for (var k=0; k<PortsArray[index].ListofPreArrivalDocs.length; k++){
-      PortsArray[index].ListofPreArrivalDocs[k].Status = false;
+findIndx("PortDocRefresh", function(elementId, index) {
 
+  	var r = confirm('It will set all Documents status to unsent')
+  	if (r == true) {
+  		for (var k = 0; k < PortsArray[index].ListofPreArrivalDocs.length; k++) {
+      		PortsArray[index].ListofPreArrivalDocs[k].Status = false
+   		 }
+
+	    for (var j = 0; j < PortsArray[index].ListofArrivalDocs.length; j++) {
+	      PortsArray[index].ListofArrivalDocs[j].Status = false;
+	    }
+	    PortsArray[index].Status = false;
+	    cleanAllColumns();
+	    updatePortlistAll(PortsArray);
+	    updatePortlist(PortsArray);
     }
+})
 
-    for (var j=0; j<PortsArray[index].ListofArrivalDocs.length; j++){
-      PortsArray[index].ListofArrivalDocs[j].Status = false;
-    }
-    PortsArray[index].Status = false;
-    cleanAllColumns();
-    updatePortlistAll(PortsArray);
-    updatePortlist(PortsArray);
-
-    }
-  });
-
-  findIndx("PortsUL", function(elementId, index) {
-   // alert(elementId + "   " + index);
+findIndx("PortsUL", function(elementId, index) {
   
     portIdx = index;
     
     cleanAllColumns();
 
-    for (var i=0; i<PortsArray.length; i++){
+    for (var i = 0; i < PortsArray.length; i++) {
       NewPort(PortsArray[i].Name, PortsArray[i].ETA, PortsArray[i].DueTime, i);
     }
-    var list= document.getElementById('PortsUL').getElementsByTagName('li');
+    var list = document.getElementById('PortsUL').getElementsByTagName('li');
     list[portIdx].className = 'highcolor';
-    if(PortsArray[portIdx].Status === true){list[portIdx].className = 'highcolor'};
+    if (PortsArray[portIdx].Status === true) { 
+    	list[portIdx].className = 'highcolor'
+    }
 
-  document.getElementById("PreArrDocCloseBttn").innerHTML = "";
-  document.getElementById("PreArrivalUL").innerHTML = "";
-
-  document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
-  document.getElementById("ArrivalUL").innerHTML = "";
-  document.getElementById("NCopies").innerHTML = "";
+	document.getElementById("PreArrDocCloseBttn").innerHTML = "";
+	document.getElementById("PreArrivalUL").innerHTML = "";
+	document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
+	document.getElementById("ArrivalUL").innerHTML = "";
+	document.getElementById("NCopies").innerHTML = "";
       
-  for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++){
+	for (var i = 0; i < PortsArray[portIdx].ListofPreArrivalDocs.length; i++) {
   
-  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+	var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+	var liPreArrDoc = document.createElement("li");
+	
+		if (PortsArray[portIdx].ListofPreArrivalDocs[i].Status) {
+		liPreArrDoc.className = 'done';
+		}
 
-  var liPreArrDoc = document.createElement("li");
-  if(PortsArray[portIdx].ListofPreArrivalDocs[i].Status){
-    liPreArrDoc.className = 'done';
-  } 
-  var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
-  var tPreDoc = document.createTextNode(inputValue);
-  liPreArrDoc.appendChild(tPreDoc);
+	var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
+	var tPreDoc = document.createTextNode(inputValue);
+	liPreArrDoc.appendChild(tPreDoc)
+	var liPreArrDocClose = document.createElement("li");
+	liPreArrDocClose.className = "close"
+	var txt = document.createTextNode("\u00D7");
+	liPreArrDocClose.appendChild(txt);
 
-  var liPreArrDocClose = document.createElement("li");
-  liPreArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liPreArrDocClose.appendChild(txt);
+	document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+	document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+	document.getElementById("PreArrivalDoc").value = "";
 
-  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
-  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
-  document.getElementById("PreArrivalDoc").value = "";
+	}
 
-  };
+	for (var i = 0; i < PortsArray[portIdx].ListofArrivalDocs.length; i++) {
+    	var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+		var liArrDoc = document.createElement("li");
+  
+	  		if (PortsArray[portIdx].ListofArrivalDocs[i].Status) {
+	    		liArrDoc.className = 'done';
+	  		} 
+		var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+		var tArrDoc = document.createTextNode(inputValueName);
+		liArrDoc.appendChild(tArrDoc);
 
-  for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
-    var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+		var liArrDocNCopies = document.createElement("li"); 
+		var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+		var tArrDoc = document.createTextNode(inputValueNCopies);
+		liArrDocNCopies.appendChild(tArrDoc);
+		var liArrDocClose = document.createElement("li");
+		liArrDocClose.className = "close"
+		var txt = document.createTextNode("\u00D7");
+		liArrDocClose.appendChild(txt);
 
-  var liArrDoc = document.createElement("li");
-  if(PortsArray[portIdx].ListofArrivalDocs[i].Status){
-    liArrDoc.className = 'done';
-  } 
-  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
-  var tArrDoc = document.createTextNode(inputValueName);
-  liArrDoc.appendChild(tArrDoc);
-
-  var liArrDocNCopies = document.createElement("li"); 
-  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
-  var tArrDoc = document.createTextNode(inputValueNCopies);
-  liArrDocNCopies.appendChild(tArrDoc);
-
-
-  var liArrDocClose = document.createElement("li");
-  liArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liArrDocClose.appendChild(txt);
-
-  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
-  document.getElementById("ArrivalUL").appendChild(liArrDoc);
-  document.getElementById("NCopies").appendChild(liArrDocNCopies);
-
-  document.getElementById("ArrivalDoc").value = "";
-
-  }
+		document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+		document.getElementById("ArrivalUL").appendChild(liArrDoc);
+		document.getElementById("NCopies").appendChild(liArrDocNCopies);
+		document.getElementById("ArrivalDoc").value = "";
+	}
 
 
-  })
+})
 
-  findIndx("PreArrDocCloseBttn", function(elementId, index) {
-    // alert( portIdx + "   " + index)
-
+findIndx("PreArrDocCloseBttn", function(elementId, index) {
     document.getElementById("PreArrDocCloseBttn").innerHTML = "";
     document.getElementById("PreArrivalUL").innerHTML = "";
 
     DeleteRecord(PortsArray[portIdx].ListofPreArrivalDocs, index)
-    for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++){
-  
-  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+    	for (var i=0; i<PortsArray[portIdx].ListofPreArrivalDocs.length; i++) {  
+  			var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+  			var liPreArrDoc = document.createElement("li"); 
+			var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
+			var tPreDoc = document.createTextNode(inputValue);
+			liPreArrDoc.appendChild(tPreDoc);
+			var liPreArrDocClose = document.createElement("li");
+			liPreArrDocClose.className = "close"
+  			var txt = document.createTextNode("\u00D7");
+			liPreArrDocClose.appendChild(txt);
+			document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+			document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+			document.getElementById("PreArrivalDoc").value = "";
+  		}
+})
 
-  var liPreArrDoc = document.createElement("li"); 
-  var inputValue = PortsArray[portIdx].ListofPreArrivalDocs[i].Name;
-  var tPreDoc = document.createTextNode(inputValue);
-  liPreArrDoc.appendChild(tPreDoc);
-
-  var liPreArrDocClose = document.createElement("li");
-  liPreArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liPreArrDocClose.appendChild(txt);
-
-  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
-  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
-  document.getElementById("PreArrivalDoc").value = "";
-
-  };
-  })
-
-  findIndx("ArrivalDocCloseBttn" , function(elementId, index) {
-    // alert (portIdx + "  " + index)
-      DeleteRecord(PortsArray[portIdx].ListofArrivalDocs, index);
-
+findIndx("ArrivalDocCloseBttn" , function(elementId, index) {
+	DeleteRecord(PortsArray[portIdx].ListofArrivalDocs, index);
     document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
     document.getElementById("ArrivalUL").innerHTML = "";
     document.getElementById("NCopies").innerHTML = "";
 
-  for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
-  var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+	for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++) {
+		var iArrDoc=document.getElementById("ArrivalUL").childNodes.length;
+		var liArrDoc = document.createElement("li"); 
+		var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
+		var tArrDoc = document.createTextNode(inputValueName);
+		liArrDoc.appendChild(tArrDoc);
+		var liArrDocNCopies = document.createElement("li"); 
+		var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
+  		var tArrDoc = document.createTextNode(inputValueNCopies);
+  		liArrDocNCopies.appendChild(tArrDoc);
+		var liArrDocClose = document.createElement("li");
+		liArrDocClose.className = "close"
+		var txt = document.createTextNode("\u00D7");
+		liArrDocClose.appendChild(txt);
 
-  var liArrDoc = document.createElement("li"); 
-  var inputValueName = PortsArray[portIdx].ListofArrivalDocs[i].Name;
-  var tArrDoc = document.createTextNode(inputValueName);
-  liArrDoc.appendChild(tArrDoc);
-
-  var liArrDocNCopies = document.createElement("li"); 
-  var inputValueNCopies = PortsArray[portIdx].ListofArrivalDocs[i].NumberOfCopies;
-  var tArrDoc = document.createTextNode(inputValueNCopies);
-  liArrDocNCopies.appendChild(tArrDoc);
-
-
-  var liArrDocClose = document.createElement("li");
-  liArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liArrDocClose.appendChild(txt);
-
-  document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
-  document.getElementById("ArrivalUL").appendChild(liArrDoc);
-  document.getElementById("NCopies").appendChild(liArrDocNCopies);
-
-  document.getElementById("ArrivalDoc").value = "";
-
-  }
-  })
+		document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+		document.getElementById("ArrivalUL").appendChild(liArrDoc);
+		document.getElementById("NCopies").appendChild(liArrDocNCopies);
+		document.getElementById("ArrivalDoc").value = "";
+	}
+})
 
 findIndx('PreArrivalUL', function(element, index) {
-// alert (portIdx + "  " + index)
+	var list = document.getElementById("PreArrivalUL").getElementsByTagName('li');
 
-var list = document.getElementById("PreArrivalUL").getElementsByTagName('li');
-
-if (list[index].className != 'done') {list[index].className = 'done'; PortsArray[portIdx].ListofPreArrivalDocs[index].Status = true} else {
-list[index].className = ''; PortsArray[portIdx].ListofPreArrivalDocs[index].Status = false};
-
-PortsArray[portIdx].Status = StatusCheck (portIdx);
-
-});
+	if (list[index].className != 'done') {
+		list[index].className = 'done'; PortsArray[portIdx].ListofPreArrivalDocs[index].Status = true
+	} 
+		else {
+			list[index].className = ''; PortsArray[portIdx].ListofPreArrivalDocs[index].Status = false
+		}
+	PortsArray[portIdx].Status = StatusCheck (portIdx);
+})
 
 findIndx('ArrivalUL', function(element, index) {
-// alert (portIdx + "  " + index)
+	var list = document.getElementById("ArrivalUL").getElementsByTagName('li');
+		if (list[index].className != 'done') { 
+			list[index].className = 'done'; PortsArray[portIdx].ListofArrivalDocs[index].Status = true 
+		} else {
+			list[index].className = ''; PortsArray[portIdx].ListofArrivalDocs[index].Status = false
+		}
 
-var list = document.getElementById("ArrivalUL").getElementsByTagName('li');
-
-if (list[index].className != 'done') {list[index].className = 'done'; PortsArray[portIdx].ListofArrivalDocs[index].Status = true} else {
-list[index].className = ''; PortsArray[portIdx].ListofArrivalDocs[index].Status = false};
-
-PortsArray[portIdx].Status = StatusCheck (portIdx);
-
-
-});
+	PortsArray[portIdx].Status = StatusCheck (portIdx);
+})
 
 
 function StatusCheck (portIndex) {
 
-var Status = true;
-
-for (var i=0; i<PortsArray[portIdx].ListofArrivalDocs.length; i++){
-  if(PortsArray[portIdx].ListofArrivalDocs[i].Status === false){Status = false}
+	var Status = true
+		for (var i = 0; i < PortsArray[portIdx].ListofArrivalDocs.length; i++) {
+  			if (PortsArray[portIdx].ListofArrivalDocs[i].Status === false) {Status = false}
+		}
+		for (var j = 0; j < PortsArray[portIdx].ListofPreArrivalDocs.length; j++) {
+			if(PortsArray[portIdx].ListofPreArrivalDocs[j].Status === false){Status = false}
+		}
+	return Status;
 }
-
-for (var j=0; j<PortsArray[portIdx].ListofPreArrivalDocs.length; j++){
-  if(PortsArray[portIdx].ListofPreArrivalDocs[j].Status === false){Status = false}
-}
-
-return Status;
-};
-
-
-
 
 function findIndx(elementId, callback) {
   document.getElementById(elementId).onclick = function(event) {    
-    var list= this.getElementsByTagName("li");
-    for (var i=0; i!= list.length; ++i) {
-      if (list[i]==event.target) {
-        if(callback) {
+    var list = this.getElementsByTagName("li");
+    for (var i = 0; i!= list.length; ++i) {
+      if (list[i] == event.target) {
+        if (callback) {
           callback(elementId, i)
         }
-        return;
-      };
+        return
+      }
     }
-  };
+  }
 }
 
 function findIndxDbl(elementId, callback) {
   document.getElementById(elementId).ondblclick = function(event) {    
-    var list= this.getElementsByTagName("li");
-    for (var i=0; i!= list.length; ++i) {
+    var list = this.getElementsByTagName("li");
+    for (var i = 0; i != list.length; ++i) {
       if (list[i]==event.target) {
-        if(callback) {
+        if (callback) {
           callback(elementId, i)
         }
-        return;
-      };
+        return
+      }
     }
-  };
+  }
 }
-
 
 function AddNewPort() {
   NewPort(document.getElementById("PortInput").value, 'YYYY-MM-DD HH:MM', 0, 0);
@@ -833,7 +790,7 @@ function AddNewPort() {
   document.getElementById("PortInput").value = "";  
 }
 
-function addNewPorttoArray(ArrayName, pName){
+function addNewPorttoArray(ArrayName, pName) {
 
   var NewPortObj = {};
   NewPortObj.Name = pName;
@@ -842,177 +799,143 @@ function addNewPorttoArray(ArrayName, pName){
   NewPortObj.ListofArrivalDocs = [];
   NewPortObj.ListofPreArrivalDocs = [];
   NewPortObj.Status = false;
-  ArrayName.push(NewPortObj);
-
+  ArrayName.push(NewPortObj)
 }
-
-
 
 function NewPort(pName, pETA, pAdvanceNotice, pIndx) {
-  
-  // var iPort=document.getElementById("PortsUL").childNodes.length;
-  
-  var liPort = document.createElement("li");
-  var myTime = moment().add(pAdvanceNotice, 'days').format('YYYY-MM-DD HH:MM')+1
-  var liPrtNmt = document.createElement('li');
+	var liPort = document.createElement("li");
+	var myTime = moment().add(pAdvanceNotice, 'days').format('YYYY-MM-DD HH:MM')+1
+	var liPrtNmt = document.createElement('li');
 
-  if(myTime>=pETA){
-    liPrtNmt.className = 'tosend'
-  }
+	if(myTime >= pETA) {
+		liPrtNmt.className = 'tosend'
+	}
 
-  if (PortsArray[pIndx].Status === true){
+	if (PortsArray[pIndx].Status === true) {
+		liPrtNmt.className = 'done'
+  	}
 
-    liPrtNmt.className = 'done'
-    // liPort.className = 'done'
-  };
+	if ((moment(pETA) - moment()) < 0) {
+    	liPrtNmt.className = 'passed'
+  	}
 
-  if ((moment(pETA) - moment())<0){
-    // liPort.className = 'passed'
-    liPrtNmt.className = 'passed'
-  }
+	var Portt = document.createTextNode(pName);
+	liPort.appendChild(Portt) 
+	var liPrtNmtt = document.createTextNode('[..]')
+	liPrtNmt.appendChild(liPrtNmtt);
+	var liETA = document.createElement("li");
+	var tETA = document.createTextNode(pETA);
+	liETA.appendChild(tETA);
+	var lipAdvanceNotice = document.createElement("li");
+	var tpAdvanceNotice = document.createTextNode(pAdvanceNotice);
+	lipAdvanceNotice.appendChild(tpAdvanceNotice);
+	var liClose = document.createElement("li");
+	liClose.className = "close"
+	var txt = document.createTextNode("\u00D7");
+	var liRefresh = document.createElement("li");
+	var RefreshTXT = document.createTextNode("\u039E");
+	liRefresh.appendChild(RefreshTXT);
 
-  var Portt = document.createTextNode(pName);
-  liPort.appendChild(Portt);
-
- 
-  var liPrtNmtt = document.createTextNode('[..]')
-  liPrtNmt.appendChild(liPrtNmtt);
-
-  var liETA = document.createElement("li");
-  var tETA = document.createTextNode(pETA);
-  liETA.appendChild(tETA);
-
-  var lipAdvanceNotice = document.createElement("li");
-  var tpAdvanceNotice = document.createTextNode(pAdvanceNotice);
-  lipAdvanceNotice.appendChild(tpAdvanceNotice);
-
-
-  var liClose = document.createElement("li");
-  liClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-
-  var liRefresh = document.createElement("li");
-  var RefreshTXT = document.createTextNode("\u039E");
-  liRefresh.appendChild(RefreshTXT);
-
-  if (pName != '') {
-    
-    liClose.appendChild(txt);
-    document.getElementById("PortCloseBttn").appendChild(liClose);
-    document.getElementById("PortsUL").appendChild(liPort);
-    document.getElementById("PrtNm").appendChild(liPrtNmt);    
-    document.getElementById("PortsETAUL").appendChild(liETA);  
-    
-    document.getElementById("PortsAdvNtcUL").appendChild(lipAdvanceNotice);
-    document.getElementById("PortDocRefresh").appendChild(liRefresh);
-    
+  	if (pName != '') {    
+	    liClose.appendChild(txt);
+	    document.getElementById("PortCloseBttn").appendChild(liClose);
+	    document.getElementById("PortsUL").appendChild(liPort);
+	    document.getElementById("PrtNm").appendChild(liPrtNmt);    
+	    document.getElementById("PortsETAUL").appendChild(liETA);  
+		document.getElementById("PortsAdvNtcUL").appendChild(lipAdvanceNotice);
+	    document.getElementById("PortDocRefresh").appendChild(liRefresh);
     } else {
     alert("You must write something!");
-  }
+  	}
 }
 
-function addPreArrivalDocToList(){
+function addPreArrivalDocToList() {
+	var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
+	var liPreArrDoc = document.createElement("li"); 
+	var inputValue = document.getElementById("PreArrivalDoc").value;
+	var tPreDoc = document.createTextNode(inputValue);
+	liPreArrDoc.appendChild(tPreDoc);
+	var liPreArrDocClose = document.createElement("li");
+	liPreArrDocClose.className = "close"
+	var txt = document.createTextNode("\u00D7");
+	liPreArrDocClose.appendChild(txt);
 
-  var iArrDoc=document.getElementById("PreArrivalUL").childNodes.length;
-
-  var liPreArrDoc = document.createElement("li"); 
-  var inputValue = document.getElementById("PreArrivalDoc").value;
-  var tPreDoc = document.createTextNode(inputValue);
-  liPreArrDoc.appendChild(tPreDoc);
-
-  var liPreArrDocClose = document.createElement("li");
-  liPreArrDocClose.className = "close"
-  var txt = document.createTextNode("\u00D7");
-  liPreArrDocClose.appendChild(txt);
-
-if (inputValue!="") {
-  document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
-  document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
-  document.getElementById("PreArrivalDoc").value = "";
-
-  var NewPreArrDocObj = {};
-  NewPreArrDocObj.Name = inputValue;
-  NewPreArrDocObj.Status = false;
-  PortsArray[portIdx].ListofPreArrivalDocs.push(NewPreArrDocObj);
-
-
-  }else{
-    alert("Enter Name of Document!")
-  }
-
+	if (inputValue!="") {
+		document.getElementById("PreArrDocCloseBttn").appendChild(liPreArrDocClose);
+		document.getElementById("PreArrivalUL").appendChild(liPreArrDoc);
+		document.getElementById("PreArrivalDoc").value = "";
+		var NewPreArrDocObj = {};
+		NewPreArrDocObj.Name = inputValue;
+		NewPreArrDocObj.Status = false;
+		PortsArray[portIdx].ListofPreArrivalDocs.push(NewPreArrDocObj);
+	}else{
+		alert("Enter Name of Document!")
+	}
 }
 
-function addArrivalDocToList(){
+function addArrivalDocToList() {
+	var iPreArrDoc=document.getElementById("ArrivalUL").childNodes.length;  
+	var liDoc = document.createElement("li");
+	var inputValueDocName = document.getElementById("ArrivalDoc").value;
+	var DocNamet = document.createTextNode(inputValueDocName);
+	liDoc.appendChild(DocNamet);
+	var liCopies = document.createElement("li");
+	var inputValueDocCopies = document.getElementById("ArrivalDocCopies").value;
+	DocCopiest = document.createTextNode(inputValueDocCopies);
+	liCopies.appendChild(DocCopiest)
 
-  var iPreArrDoc=document.getElementById("ArrivalUL").childNodes.length;  
-    
-    var liDoc = document.createElement("li");
-    var inputValueDocName = document.getElementById("ArrivalDoc").value;
-    var DocNamet = document.createTextNode(inputValueDocName);
-      liDoc.appendChild(DocNamet);
-      var liCopies = document.createElement("li");
-      var inputValueDocCopies = document.getElementById("ArrivalDocCopies").value;
-      DocCopiest = document.createTextNode(inputValueDocCopies);
-      liCopies.appendChild(DocCopiest); 
+	if (inputValueDocName === "" || inputValueDocCopies === "") {alert("Document or Number of Copies not Entered!")
+    	} else {
+	      var liArrDocClose = document.createElement("li");
+	      liArrDocClose.className = "close"
+	      var txt = document.createTextNode("\u00D7");
+	        
+	      liArrDocClose.appendChild(txt);
+	      document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
+	      document.getElementById("ArrivalUL").appendChild(liDoc);
+	      document.getElementById("ArrivalDoc").value = "";  
+	      document.getElementById("NCopies").appendChild(liCopies);
+	      document.getElementById("ArrivalDocCopies").value = "";
 
-  if (inputValueDocName===""||inputValueDocCopies==="") {alert("Document or Number of Copies not Entered!")
-    }else{
-      var liArrDocClose = document.createElement("li");
-      liArrDocClose.className = "close"
-      var txt = document.createTextNode("\u00D7");
-        
-      liArrDocClose.appendChild(txt);
-      document.getElementById("ArrivalDocCloseBttn").appendChild(liArrDocClose);
-      document.getElementById("ArrivalUL").appendChild(liDoc);
-      document.getElementById("ArrivalDoc").value = "";  
-      document.getElementById("NCopies").appendChild(liCopies);
-      document.getElementById("ArrivalDocCopies").value = "";
+	      var NewArrDocObj = {};
+	      NewArrDocObj.Name = inputValueDocName;
+	      NewArrDocObj.NumberOfCopies = inputValueDocCopies;
+	      NewArrDocObj.Status = false;
+	      PortsArray[portIdx].ListofArrivalDocs.push(NewArrDocObj);
+		}
+}
 
-      var NewArrDocObj = {};
-      NewArrDocObj.Name = inputValueDocName;
-      NewArrDocObj.NumberOfCopies = inputValueDocCopies;
-      NewArrDocObj.Status = false;
-      PortsArray[portIdx].ListofArrivalDocs.push(NewArrDocObj);
-       
-    }
-  }
+function handleFileSelect() {               
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		} else {
+			alert('The File APIs are not fully supported in this browser.');
+		return;
+		}
+		input = document.getElementById('fileinput');
+	if (!input) {
+		alert("Um, couldn't find the fileinput element.");
+	}
+		else if (!input.files) {
+			alert("This browser doesn't seem to support the `files` property of file inputs.");
+		}
+		else if (!input.files[0]) {
+			alert("Please select a file before clicking 'Load'");               
+		} else {
+			file = input.files[0];
+			fr = new FileReader();
+			fr.onload = receivedText;
+			fr.readAsText(file);
+		}
+}
 
-  function handleFileSelect()
-            {               
-                if (window.File && window.FileReader && window.FileList && window.Blob) {
+function receivedText() {           
+	var result = JSON.parse(fr.result);
+	PortsArray = result.PortsArray;
+	console.log(PortsArray);
+	updatePortlistAll(PortsArray);
+}
 
-                } else {
-                    alert('The File APIs are not fully supported in this browser.');
-                    return;
-                }   
-
-                input = document.getElementById('fileinput');
-                if (!input) {
-                  alert("Um, couldn't find the fileinput element.");
-               }
-               else if (!input.files) {
-                  alert("This browser doesn't seem to support the `files` property of file inputs.");
-               }
-               else if (!input.files[0]) {
-                  alert("Please select a file before clicking 'Load'");               
-               }
-               else {
-                  file = input.files[0];
-                  fr = new FileReader();
-                  fr.onload = receivedText;
-                  fr.readAsText(file);
-               }
-            }
-  function receivedText() {           
-      var result = JSON.parse(fr.result);
-      PortsArray = result.PortsArray;
-
-console.log(PortsArray);
-updatePortlistAll(PortsArray);
-    }
-
-  function updatePortlist(updPortsArray){
-  
+function updatePortlist(updPortsArray) {
     document.getElementById("PortCloseBttn").innerHTML = "";
     document.getElementById("PortsUL").innerHTML = "";
     document.getElementById("PrtNm").innerHTML = "";
@@ -1020,40 +943,35 @@ updatePortlistAll(PortsArray);
     document.getElementById("PortsAdvNtcUL").innerHTML = "";
     document.getElementById("PortDocRefresh").innerHTML = "";
 
-      for (var i=0; i<updPortsArray.length; i++){
-                NewPort(updPortsArray[i].Name, updPortsArray[i].ETA, updPortsArray[i].DueTime, i);
-              };
-              nextPort(PortsArray);
-  }
+    for (var i = 0; i < updPortsArray.length; i++) {
+        NewPort(updPortsArray[i].Name, updPortsArray[i].ETA, updPortsArray[i].DueTime, i)
+    }
+    nextPort(PortsArray)
+}
 
-  function updatePortlistAll(updPortsArray){
+function updatePortlistAll (updPortsArray) {
+	cleanAllColumns();
+    for (var i = 0; i < updPortsArray.length; i++) {
+        NewPort(updPortsArray[i].Name, updPortsArray[i].ETA, updPortsArray[i].DueTime, i);
+    }
+	nextPort(PortsArray);
+}
 
-    cleanAllColumns();
+function SaveDataToFile () { 
 
-    for (var i=0; i<updPortsArray.length; i++){
-                NewPort(updPortsArray[i].Name, updPortsArray[i].ETA, updPortsArray[i].DueTime, i);
-              };
-              nextPort(PortsArray);
-  }
-
-function SaveDataToFile (){ 
-
-var ObjToSave = {PortsArray};
-var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ObjToSave, null, 4));
-
-var a = document.createElement('a');
-a.href = 'data:' + data;
-a.download = 'data.json';
-a.innerHTML = 'to Location';
-
-var container = document.getElementById('container');
-document.getElementById("container").innerHTML = "";
-container.appendChild(a);
-
+	var ObjToSave = {PortsArray}
+	var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ObjToSave, null, 4));
+	var a = document.createElement('a')
+	a.href = 'data:' + data
+	a.download = 'data.json'
+	a.innerHTML = 'to Location'
+	var container = document.getElementById('container')
+	document.getElementById("container").innerHTML = ""
+	container.appendChild(a)
 }
 
 
-function cleanAllColumns(){
+function cleanAllColumns() {
 
     document.getElementById("PortCloseBttn").innerHTML = "";
     document.getElementById("PortsUL").innerHTML = "";
@@ -1061,10 +979,8 @@ function cleanAllColumns(){
     document.getElementById("PortsETAUL").innerHTML = "";
     document.getElementById("PortsAdvNtcUL").innerHTML = "";
     document.getElementById("PortDocRefresh").innerHTML = "";
-
     document.getElementById("PreArrDocCloseBttn").innerHTML = "";
     document.getElementById("PreArrivalUL").innerHTML = "";
-
     document.getElementById("ArrivalDocCloseBttn").innerHTML = "";
     document.getElementById("ArrivalUL").innerHTML = "";
     document.getElementById("NCopies").innerHTML = "";
@@ -1072,7 +988,7 @@ function cleanAllColumns(){
     nextPort(PortsArray);
 }
 
-function DeleteRecord(ArrayToModify, RecordToDelete){
+function DeleteRecord(ArrayToModify, RecordToDelete) {
   ArrayToModify.splice (RecordToDelete, 1);
 }
 
